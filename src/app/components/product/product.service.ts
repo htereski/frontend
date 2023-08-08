@@ -8,7 +8,8 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class ProductService {
-  baseUrl = "http://localhost:3001/products";
+  //baseUrl = "http://localhost:3001/products";
+  baseUrl = "http://localhost:8080/products";
 
   constructor(private snackBar: MatSnackBar, private http: HttpClient) {}
 
@@ -21,7 +22,7 @@ export class ProductService {
   }
 
   create(product: Product): Observable<Product> {
-    return this.http.post<Product>(this.baseUrl, product);
+    return this.http.post<Product>(`${this.baseUrl}/create`, product);
   }
 
   read(): Observable<Product[]> {
@@ -34,12 +35,12 @@ export class ProductService {
   }
 
   update(product: Product): Observable<Product> {
-    const url = `${this.baseUrl}/${product.id}`;
+    const url = `${this.baseUrl}/update/${product.id}`;
     return this.http.put<Product>(url, product);
   }
 
   delete(product: Product): Observable<Product> {
-    const url = `${this.baseUrl}/${product.id}`;
+    const url = `${this.baseUrl}/delete/${product.id}`;
     return this.http.delete<Product>(url);
   }
 }
